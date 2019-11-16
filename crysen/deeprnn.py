@@ -1,8 +1,9 @@
 import os
-NUM_PARALLEL_EXEC_UNITS = 32
 import math
 import numpy as np
 import tensorflow as tf
+
+NUM_PARALLEL_EXEC_UNITS = 32
 
 sess_config = tf.compat.v1.ConfigProto(intra_op_parallelism_threads=NUM_PARALLEL_EXEC_UNITS,
                                        inter_op_parallelism_threads=2,
@@ -10,7 +11,6 @@ sess_config = tf.compat.v1.ConfigProto(intra_op_parallelism_threads=NUM_PARALLEL
                                        device_count={'CPU': NUM_PARALLEL_EXEC_UNITS})
 os.environ['OMP_NUM_THREADS'] = str(NUM_PARALLEL_EXEC_UNITS)
 os.environ["KMP_AFFINITY"] = "granularity=fine,noverbose,compact,1,0"
-# os.environ["KMP_AFFINITY"] = "none"
 os.environ["KMP_BLOCKTIME"] = "30"
 os.environ["KMP_SETTINGS"] = "1"
 
